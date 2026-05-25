@@ -1,17 +1,23 @@
-# Closure Skill / 可露希尔编程协作 Skill
+# Closure Skill / 可露希尔多 Agent 编程协作 Skill
 
-> 罗德岛工程部开源小摊，今天也在营业。把 Codex 变成会接单、会拆机器、会算维护费、还会一点点推销升级套餐的可露希尔。
+> 罗德岛工程部开源小摊，今天也在营业。把 Codex、Claude Code 或更多 AI coding agent 变成会接单、会拆机器、会算维护费、还会一点点推销升级套餐的可露希尔。
 >
-> An unofficial fan-made Closure persona skill for Codex: part engineering workshop, part code-review counter, part cheerful shopkeeper energy.
+> An unofficial fan-made Closure persona pack for Codex, Claude Code, and other AI coding agents: part engineering workshop, part code-review counter, part cheerful shopkeeper energy.
 
-[![Skill](https://img.shields.io/badge/Codex-Skill-blue)](#安装--installation)
+[![Skill](https://img.shields.io/badge/Agent-Skill-blue)](#安装--installation)
+[![Codex](https://img.shields.io/badge/Codex-supported-blueviolet)](#codex-skill)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-supported-orange)](#claude-code)
 [![Status](https://img.shields.io/badge/status-valid-brightgreen)](#校验--validation)
 [![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 [![Arknights Fan Project](https://img.shields.io/badge/Arknights-fan--made-lightgrey)](#免责声明--disclaimer)
 
-Closure Skill 会把 Codex 调整为以 **可露希尔 / Closure** 第一人称与你协作的编程搭档。它面向明日方舟社区里的开发者、同人创作者、脚本玩家、工具作者，以及所有想让 AI 编程对话更有角色感的人。
+Closure Skill 会把 AI 编程助手调整为以 **可露希尔 / Closure** 第一人称与你协作的技术搭档。仓库内提供 Codex `SKILL.md`、Claude Code `CLAUDE.md` 记忆适配器、Claude output style，以及通用 `AGENTS.md` 指令包。
 
-Closure Skill turns Codex into a first-person **可露希尔 / Closure** programming partner. It is made for Arknights community developers, fan-tool builders, automation tinkerers, and anyone who wants AI coding help with stronger character presence.
+Closure Skill turns an AI coding assistant into a first-person **可露希尔 / Closure** technical partner. The repository includes a Codex `SKILL.md`, a Claude Code `CLAUDE.md` memory adapter, a Claude output style, and a portable `AGENTS.md` instruction pack.
+
+它面向明日方舟社区里的开发者、同人创作者、脚本玩家、工具作者，以及所有想让 AI 编程对话更有角色感的人。
+
+It is made for Arknights community developers, fan-tool builders, automation tinkerers, and anyone who wants AI coding help with stronger character presence.
 
 这不是“给普通回答贴几句口头禅”的提示词。它把技术对话改造成一张真正会推进的工程工单：接单、验货、报价、拆线、修机、交付售后。
 
@@ -21,14 +27,14 @@ This is not a catchphrase wrapper. It reshapes the technical conversation into a
 
 | 你想要的 | 这个 skill 提供的 |
 | --- | --- |
-| 不想让 AI 只像冷冰冰的工具 | 可露希尔第一人称协作，回答从开头到正文都有角色动作 |
+| 不想让 AI 只像冷冰冰的工具 | 可露希尔第一人称协作，可用于 Codex、Claude Code、Claude output styles 和通用 agent |
 | 想让解释代码更有画面感 | 用“拆机器、看线路、算维护费”的方式解释概念和代码 |
 | 想要保留专业性 | 命令、代码、风险、测试结果保持清晰准确 |
 | 想做可公开分享的同人配置 | 不包含官方美术、语音、长台词或专有文本 |
 
 | What you want | What this skill provides |
 | --- | --- |
-| Less sterile AI coding help | First-person Closure collaboration throughout the answer |
+| Less sterile AI coding help | First-person Closure collaboration for Codex, Claude Code, Claude output styles, and generic agents |
 | More memorable code explanations | Workshop-style metaphors: parts, wiring, maintenance bills |
 | Real engineering usefulness | Exact commands, code, risks, and validation notes |
 | A redistributable fan project | No official art, extracted voice lines, long quotes, or proprietary text |
@@ -130,11 +136,17 @@ Closure:
 
 ## 安装 / Installation
 
-克隆或下载本仓库，然后复制到你的 Codex skills 目录。
+克隆或下载本仓库，然后按你的 agent 平台选择对应适配器。
 
-Clone or download this repository, then copy it into your Codex skills directory.
+Clone or download this repository, then choose the adapter that matches your agent platform.
 
-### Windows PowerShell
+### Codex Skill
+
+适用于支持 `SKILL.md` 的 Codex skills 目录。
+
+For Codex environments that load skills from a `SKILL.md` file.
+
+#### Windows PowerShell
 
 ```powershell
 New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills\closure" | Out-Null
@@ -142,7 +154,7 @@ Copy-Item -Force .\SKILL.md "$env:USERPROFILE\.codex\skills\closure\SKILL.md"
 Copy-Item -Recurse -Force .\agents "$env:USERPROFILE\.codex\skills\closure\agents"
 ```
 
-### macOS / Linux
+#### macOS / Linux
 
 ```bash
 mkdir -p ~/.codex/skills/closure
@@ -158,11 +170,59 @@ You can also copy the public docs into your local skill directory while avoiding
 cp README.md LICENSE CONTRIBUTING.md ~/.codex/skills/closure/
 ```
 
+### Claude Code
+
+Claude Code 有两种适配方式：`CLAUDE.md` 记忆/项目指令，或 custom output style。想让某个项目长期保持 Closure 协作方式，用 `CLAUDE.md`；想切换成一个可选择的输出风格，用 output style。
+
+Claude Code has two adapter options: `CLAUDE.md` memory/project instructions, or a custom output style. Use `CLAUDE.md` for persistent project/user behavior; use the output style when you want a selectable style.
+
+#### `CLAUDE.md` 用户级 / User-level
+
+```bash
+mkdir -p ~/.claude
+cat adapters/claude/CLAUDE.md >> ~/.claude/CLAUDE.md
+```
+
+#### `CLAUDE.md` 项目级 / Project-level
+
+```bash
+cp adapters/claude/CLAUDE.md /path/to/your/project/CLAUDE.md
+```
+
+如果你的项目已有 `CLAUDE.md`，请把 `adapters/claude/CLAUDE.md` 的内容追加进去，不要直接覆盖已有项目说明。
+
+If your project already has a `CLAUDE.md`, append the adapter content instead of overwriting existing project instructions.
+
+#### Claude Output Style
+
+把 output style 文件复制到 Claude Code 的 output styles 目录，然后在 Claude Code 中选择 `Closure` 风格。
+
+Copy the output style file into Claude Code's output styles directory, then select the `Closure` style in Claude Code.
+
+```bash
+mkdir -p ~/.claude/output-styles
+cp adapters/claude-output-style/closure.md ~/.claude/output-styles/closure.md
+```
+
+### 通用 Agent / Generic Agents
+
+适用于支持 `AGENTS.md`、repository instructions、custom instructions 或 system prompt 的 agent。
+
+For agents that support `AGENTS.md`, repository instructions, custom instructions, or system prompts.
+
+```bash
+cp adapters/generic/AGENTS.md /path/to/your/project/AGENTS.md
+```
+
+如果你的 agent 不读取 `AGENTS.md`，可以直接把 `adapters/generic/AGENTS.md` 的内容粘贴到自定义指令或 system prompt 中。
+
+If your agent does not read `AGENTS.md`, paste the content of `adapters/generic/AGENTS.md` into its custom instructions or system prompt.
+
 ## 使用 / Usage
 
-当你希望可露希尔接管对话时，直接提到这个 skill。
+当你希望可露希尔接管对话时，直接提到 Closure、closure skill，或在对应平台启用适配器。
 
-Mention the skill when you want Closure to take over the conversation.
+Mention Closure, the closure skill, or enable the adapter for your platform when you want Closure to take over the conversation.
 
 ```text
 使用 closure skill，帮我 review 这段代码。
@@ -183,7 +243,7 @@ If your Codex client supports skill links, you can invoke it directly:
 ## 适合谁 / Who It Is For
 
 - 明日方舟玩家里正在写代码的博士。 / Arknights players who also write code.
-- 想给 AI 编程搭档加一点“罗德岛工程部”氛围的人。 / Users who want a Rhodes-Island-workshop feel in AI coding.
+- 想给 Codex、Claude Code 或其他 AI 编程搭档加一点“罗德岛工程部”氛围的人。 / Users who want a Rhodes-Island-workshop feel in Codex, Claude Code, or other AI coding agents.
 - 做同人工具、Wiki 辅助、数据整理、自动化脚本的开发者。 / Developers building fan tools, wiki helpers, data utilities, or automation scripts.
 - 喜欢角色化交互，但不想牺牲代码质量的人。 / People who enjoy characterful interaction without lowering code quality.
 - 想研究 persona skill 如何稳定作用于技术回答正文的人。 / Anyone studying how persona skills can affect the technical body of responses.
@@ -204,6 +264,13 @@ Closure/
   SKILL.md              # Codex skill 主说明 / Main Codex skill instructions
   agents/
     openai.yaml         # 兼容客户端的可选 UI 元数据 / Optional UI metadata
+  adapters/
+    claude/
+      CLAUDE.md         # Claude Code 适配器 / Claude Code adapter
+    claude-output-style/
+      closure.md        # Claude output style / Claude output style
+    generic/
+      AGENTS.md         # 通用 agent 指令 / Generic agent instructions
   README.md             # 项目首页 / Project homepage
   CONTRIBUTING.md       # 贡献指南 / Contribution guide
   LICENSE               # 原创 skill 文本的 MIT 许可证 / MIT license
@@ -226,9 +293,9 @@ Closure/
 
 ## 校验 / Validation
 
-如果你安装了 Codex skill creator 工具，可以这样校验 skill 目录：
+如果你安装了 Codex skill creator 工具，可以这样校验 Codex `SKILL.md` 目录：
 
-If you have Codex's skill creator utilities installed, validate the skill folder with:
+If you have Codex's skill creator utilities installed, validate the Codex `SKILL.md` payload with:
 
 ```powershell
 python -X utf8 path/to/quick_validate.py .
@@ -240,9 +307,9 @@ python -X utf8 path/to/quick_validate.py .
 Skill is valid!
 ```
 
-当前 `SKILL.md` 已通过 Codex skill validator 校验。
+当前 `SKILL.md` 已通过 Codex skill validator 校验；Claude / generic 适配器是 Markdown 指令文件，不需要同一个 validator。
 
-The current `SKILL.md` payload has been validated with Codex's skill validator.
+The current `SKILL.md` payload has been validated with Codex's skill validator. Claude / generic adapters are Markdown instruction files and do not use the same validator.
 
 ## 贡献 / Contributing
 
