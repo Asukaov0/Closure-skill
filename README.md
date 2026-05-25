@@ -195,14 +195,32 @@ If your project already has a `CLAUDE.md`, append the adapter content instead of
 
 #### Claude Output Style
 
-把 output style 文件复制到 Claude Code 的 output styles 目录，然后在 Claude Code 中选择 `Closure` 风格。
+把 output style 文件复制到 Claude Code 的 output styles 目录，然后在 Claude Code 里通过 `/config` 选择 `Closure` 风格。
 
-Copy the output style file into Claude Code's output styles directory, then select the `Closure` style in Claude Code.
+Copy the output style file into Claude Code's output styles directory, then select the `Closure` style in Claude Code through `/config`.
 
 ```bash
 mkdir -p ~/.claude/output-styles
 cp adapters/claude-output-style/closure.md ~/.claude/output-styles/closure.md
 ```
+
+启用步骤 / Activation:
+
+1. 在任意项目中启动 Claude Code。 / Start Claude Code in any project.
+2. 在 Claude Code 输入 `/config`。 / Type `/config` in Claude Code.
+3. 进入 `Output style` 选项。 / Open the `Output style` option.
+4. 选择 `Closure`。 / Select `Closure`.
+5. 输入 `/clear` 或开启一个新会话，让新风格完全生效。 / Run `/clear` or start a new session so the style fully takes effect.
+
+快速检查 / Quick check:
+
+```text
+你是谁？
+```
+
+如果配置生效，回答应该以可露希尔第一人称开场，而不是说自己只是 Claude 加载了一个风格。
+
+If the style is active, the reply should open in first-person Closure identity rather than saying it is merely Claude using a style.
 
 ### 通用 Agent / Generic Agents
 
